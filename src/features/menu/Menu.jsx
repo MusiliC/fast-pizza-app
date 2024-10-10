@@ -8,11 +8,11 @@ function Menu() {
  const menu = useLoaderData();
 
   return (
-    <li>
+    <>
     {
       menu.map((pizza) => <MenuItem key={pizza.id} pizza={pizza} />)
     }
-    </li>
+    </>
   );
 }
 
