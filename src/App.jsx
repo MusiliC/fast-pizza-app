@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./ui/Home";
-import Menu, {loader as menuLoader} from "./features/menu/Menu";
+import Menu, { loader as menuLoader } from "./features/menu/Menu";
 import Cart from "./features/cart/Cart";
-import CreateOrder from "./features/order/CreateOrder";
-import Order from "./features/order/Order";
+import CreateOrder, {action as createOrderAction} from "./features/order/CreateOrder";
+import Order, { loader as orderLoader } from "./features/order/Order";
 import AppLayout from "./ui/AppLayout";
 import NotFound from "./ui/Error";
+import Loader from "./ui/Loader";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
-      errorElement: <NotFound/>,
+    errorElement: <NotFound />,
     children: [
       {
         path: "/",
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
         path: "/menu",
         element: <Menu />,
         loader: menuLoader,
-          errorElement: <NotFound/>,
+        errorElement: <NotFound />,
       },
       {
         path: "/cart",
@@ -30,17 +31,19 @@ const router = createBrowserRouter([
       {
         path: "/order/new",
         element: <CreateOrder />,
+        action: createOrderAction
       },
       {
         path: "/order/:orderId",
+        loader: orderLoader,
         element: <Order />,
+        errorElement: <NotFound />,
       },
     ],
   },
 ]);
 
 function App() {
-  
   return (
     <RouterProvider router={router}>
       <p>Npm run dev</p>
