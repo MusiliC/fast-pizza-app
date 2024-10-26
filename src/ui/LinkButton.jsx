@@ -9,7 +9,7 @@ const LinkButton = ({ children, to }) => {
 
     const navigate = useNavigate();
 
-    if (to === "-1") return <button className={className} onClick={() => navigate(-1)}>{children}</button>
+    if (to === "-1") return <Link className={className} onClick={() => navigate(-1)}>{children}</Link>
 
     return (
         <Link to={to} className={className}> {children}</Link>
