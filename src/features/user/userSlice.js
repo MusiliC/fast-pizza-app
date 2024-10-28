@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* 
 import { getAddress } from "../../services/apiGeocoding";
 
 function getPosition() {
@@ -22,3 +23,25 @@ async function fetchAddress() {
   // 3) Then we return an object with the data that we are interested in
   return { position, address };
 }
+
+*/
+
+import { createSlice } from "@reduxjs/toolkit"
+
+const initialState = {
+  username: ''
+}
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers:{
+    updateName(state, action){
+      state.username = action.payload;
+    }
+  }
+})
+
+export const {updateName} = userSlice.actions;
+
+export default userSlice.reducer;
