@@ -3,36 +3,23 @@ import { Link } from 'react-router-dom';
 import LinkButton from '../../ui/LinkButton';
 import Button from '../../ui/Button';
 import CartItem from './CartItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart, getCart } from './cartSlice';
+import EmptyCart from './EmptyCart';
 
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: 'Mediterranean',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: 'Vegetale',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: 'Spinach and Mushroom',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
 
 function Cart() {
-  const cart = fakeCart;
 
-   const username = useSelector((state) => state.user.username);
+  const dispatch = useDispatch();
+
+  const username = useSelector((state) => state.user.username);
+  const cart = useSelector(getCart)
+
+  const handleOnClick = () => {
+    dispatch(clearCart())
+  }
+ 
+  if(!cart.length) return <EmptyCart/>
 
   return (
     <div className='py-3 px-4'>
@@ -48,7 +35,7 @@ function Cart() {
 
       <div className='mt-4 space-x-3'>
         <Button type="primary" to="/order/new" className="mt-6 space-x-2">Order pizzas</Button>
-        <Button type="secondary" >Clear Cart</Button>
+        <Button type="secondary" onClick={handleOnClick} >Clear Cart</Button>
 
       </div>
     </div>
